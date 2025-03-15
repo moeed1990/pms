@@ -1,0 +1,20 @@
+{% extends 'projects/project_base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Form</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary mt-3">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

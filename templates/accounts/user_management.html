@@ -1,0 +1,84 @@
+{% extends 'projects/project_base.html' %}
+
+{% block content %}
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add User Roles</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="text" name="add_user" hidden>
+                        <div>
+                            <label for="">Select User</label>
+                            <select name="project_user_id" id="" required class="form-control">
+                                {% for user in existing_users %}
+                                    <option value="{{ user.id }}">{{ user.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mt-2">
+                            <label for="">Project Role</label>
+                            <select name="project_role" id="" required class="form-control">
+                                <option value="owner">Owner</option>
+                                <option value="editor">Editor</option>
+                                <option value="reader">Reader</option>
+                            </select>
+                        </div>
+                        <div class="mt-2">
+                            <label for="">Project</label>
+                            <select name="project_id" id="" required class="form-control">
+                                {% for project in existing_projects %}
+                                    <option value="{{ project.id }}">{{ project.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <i class="bi bi-plus"></i> Add User
+                </button>
+            </div>
+            <table class="table m-auto">
+                <thead>
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project_role in existing_project_roles %}
+                    <tr>
+                        <th scope="row">{{ project_role.user.get_full_name }}</th>
+                        <th scope="row">{{ project_role.project }}</th>
+                        <td>{{ project_role.role }}</td>
+                        <td>
+                            <div class="d-flex">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input name="delete_user" value="{{ project_role.id }}" hidden>
+                                    <button class="btn btn-sm btn-danger ms-2"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
