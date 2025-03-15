@@ -9,7 +9,7 @@ from core.models import Project
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        exclude = ['owner']  # Exclude owner field
+        exclude = ['owner']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),

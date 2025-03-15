@@ -10,14 +10,18 @@ from core.views import project_list
 
 
 # Create your views here.
+def home(request):
+    return redirect('login')
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('project_list')
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             messages.success(request, "Login successful!")
-            return redirect('project_list')  # Redirect to home page
+            return redirect('project_list')
     else:
         form = LoginForm()
 
