@@ -8,10 +8,10 @@ Step 3: Create a virtual env using this command "python -m venv pms_venv"
 Step 4: Activate Environment using this command for mac "source pms_venv/bin/activate" for windows user "venv\Scripts\activate"
 Step 5: installing the requirements for a project command "pip install -r requirements.txt"
 
-To Run database requirement
+To Run database (use sqllite)
 python manage.py migrate
 
-To Run Server
+To Run Server: 
 python manage.py runserver
 
 To Create Superuser to access /admin/ url
